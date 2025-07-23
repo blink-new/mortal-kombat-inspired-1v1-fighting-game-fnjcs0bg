@@ -109,6 +109,233 @@ const COMBO_RESET_TIME = 2000 // 2 seconds
 const MOMENTUM_BOOST_DURATION = 8000 // 8 seconds
 const MOMENTUM_HEALTH_THRESHOLD = 30 // When health drops below 30%
 
+// Character Sprite Component
+const CharacterSprite = ({ character, isAttacking, isJumping, hasMomentum, facingLeft }: {
+  character: any
+  isAttacking: boolean
+  isJumping: boolean
+  hasMomentum: boolean
+  facingLeft: boolean
+}) => {
+  const getCharacterSprite = () => {
+    switch (character.name) {
+      case 'SCORPION':
+        return (
+          <div className={`relative w-20 h-24 ${isAttacking ? 'animate-pulse' : ''}`}>
+            <div className={`absolute inset-0 ${hasMomentum ? 'animate-pulse' : ''}`}>
+              {/* Head with mask */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-yellow-600 rounded-full border-2 border-yellow-800">
+                {/* Eyes */}
+                <div className="absolute top-2 left-1.5 w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
+                <div className="absolute top-2 right-1.5 w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
+                {/* Mask */}
+                <div className="absolute bottom-0 left-0 right-0 h-3 bg-yellow-800 rounded-b-full"></div>
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-1 bg-yellow-900 rounded"></div>
+              </div>
+              
+              {/* Torso */}
+              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-yellow-600 rounded-lg border-2 border-yellow-800">
+                {/* Chest armor */}
+                <div className="absolute inset-1 bg-yellow-700 rounded"></div>
+                <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-6 h-2 bg-yellow-800 rounded"></div>
+              </div>
+              
+              {/* Arms */}
+              <div className={`absolute top-9 left-0 w-4 h-8 bg-yellow-600 rounded-full border border-yellow-800 ${isAttacking ? 'rotate-45 scale-110' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-3 bg-yellow-700 rounded-full border border-yellow-900"></div>
+              </div>
+              <div className={`absolute top-9 right-0 w-4 h-8 bg-yellow-600 rounded-full border border-yellow-800 ${isAttacking ? '-rotate-45 scale-110' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-3 bg-yellow-700 rounded-full border border-yellow-900"></div>
+              </div>
+              
+              {/* Legs */}
+              <div className={`absolute bottom-0 left-2 w-4 h-8 bg-yellow-600 rounded-full border border-yellow-800 ${isJumping ? 'rotate-12' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-4 bg-yellow-700 rounded-full"></div>
+              </div>
+              <div className={`absolute bottom-0 right-2 w-4 h-8 bg-yellow-600 rounded-full border border-yellow-800 ${isJumping ? '-rotate-12' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-4 bg-yellow-700 rounded-full"></div>
+              </div>
+              
+              {/* Special effects */}
+              {hasMomentum && (
+                <div className="absolute -inset-3 bg-orange-400 rounded-full opacity-30 animate-ping"></div>
+              )}
+              
+              {isAttacking && (
+                <div className="absolute -right-6 top-1/2 transform -translate-y-1/2">
+                  <div className="w-10 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+                  <div className="w-8 h-1 bg-yellow-500 rounded-full mt-1 animate-pulse"></div>
+                  <div className="w-6 h-1 bg-red-500 rounded-full mt-1 animate-pulse"></div>
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      
+      case 'SUB-ZERO':
+        return (
+          <div className={`relative w-20 h-24 ${isAttacking ? 'animate-pulse' : ''}`}>
+            <div className={`absolute inset-0 ${hasMomentum ? 'animate-pulse' : ''}`}>
+              {/* Head with mask */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-blue-400 rounded-full border-2 border-blue-600">
+                <div className="absolute top-2 left-1.5 w-1.5 h-1.5 bg-cyan-300 rounded-full animate-pulse"></div>
+                <div className="absolute top-2 right-1.5 w-1.5 h-1.5 bg-cyan-300 rounded-full animate-pulse"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-3 bg-blue-600 rounded-b-full"></div>
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-1 bg-blue-800 rounded"></div>
+              </div>
+              
+              {/* Torso */}
+              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-blue-500 rounded-lg border-2 border-blue-700">
+                <div className="absolute inset-1 bg-blue-600 rounded"></div>
+                <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-6 h-2 bg-blue-800 rounded"></div>
+              </div>
+              
+              {/* Arms */}
+              <div className={`absolute top-9 left-0 w-4 h-8 bg-blue-500 rounded-full border border-blue-700 ${isAttacking ? 'rotate-45 scale-110' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-3 bg-blue-600 rounded-full border border-blue-800"></div>
+              </div>
+              <div className={`absolute top-9 right-0 w-4 h-8 bg-blue-500 rounded-full border border-blue-700 ${isAttacking ? '-rotate-45 scale-110' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-3 bg-blue-600 rounded-full border border-blue-800"></div>
+              </div>
+              
+              {/* Legs */}
+              <div className={`absolute bottom-0 left-2 w-4 h-8 bg-blue-500 rounded-full border border-blue-700 ${isJumping ? 'rotate-12' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-4 bg-blue-600 rounded-full"></div>
+              </div>
+              <div className={`absolute bottom-0 right-2 w-4 h-8 bg-blue-500 rounded-full border border-blue-700 ${isJumping ? '-rotate-12' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-4 bg-blue-600 rounded-full"></div>
+              </div>
+              
+              {hasMomentum && (
+                <div className="absolute -inset-3 bg-cyan-400 rounded-full opacity-30 animate-ping"></div>
+              )}
+              
+              {isAttacking && (
+                <div className="absolute -right-6 top-1/2 transform -translate-y-1/2">
+                  <div className="w-10 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                  <div className="w-8 h-1 bg-blue-400 rounded-full mt-1 animate-pulse"></div>
+                  <div className="w-6 h-1 bg-white rounded-full mt-1 animate-pulse"></div>
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      
+      case 'RAIDEN':
+        return (
+          <div className={`relative w-20 h-24 ${isAttacking ? 'animate-pulse' : ''}`}>
+            <div className={`absolute inset-0 ${hasMomentum ? 'animate-pulse' : ''}`}>
+              {/* Head with hat */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-purple-300 rounded-full border-2 border-purple-500">
+                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-10 h-4 bg-purple-600 rounded-t-full border-2 border-purple-800"></div>
+                <div className="absolute top-2 left-1.5 w-1.5 h-1.5 bg-white rounded-full"></div>
+                <div className="absolute top-2 right-1.5 w-1.5 h-1.5 bg-white rounded-full"></div>
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-3 h-1 bg-purple-600 rounded"></div>
+              </div>
+              
+              {/* Torso */}
+              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-white rounded-lg border-2 border-purple-400">
+                <div className="absolute inset-1 bg-purple-100 rounded"></div>
+                <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-6 h-2 bg-purple-300 rounded"></div>
+              </div>
+              
+              {/* Arms */}
+              <div className={`absolute top-9 left-0 w-4 h-8 bg-purple-300 rounded-full border border-purple-500 ${isAttacking ? 'rotate-45 scale-110' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-3 bg-purple-400 rounded-full border border-purple-600"></div>
+              </div>
+              <div className={`absolute top-9 right-0 w-4 h-8 bg-purple-300 rounded-full border border-purple-500 ${isAttacking ? '-rotate-45 scale-110' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-3 bg-purple-400 rounded-full border border-purple-600"></div>
+              </div>
+              
+              {/* Legs */}
+              <div className={`absolute bottom-0 left-2 w-4 h-8 bg-white rounded-full border border-purple-400 ${isJumping ? 'rotate-12' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-4 bg-purple-200 rounded-full"></div>
+              </div>
+              <div className={`absolute bottom-0 right-2 w-4 h-8 bg-white rounded-full border border-purple-400 ${isJumping ? '-rotate-12' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-4 bg-purple-200 rounded-full"></div>
+              </div>
+              
+              {hasMomentum && (
+                <div className="absolute -inset-3 bg-purple-400 rounded-full opacity-30 animate-ping"></div>
+              )}
+              
+              {isAttacking && (
+                <div className="absolute -right-6 top-1/2 transform -translate-y-1/2">
+                  <div className="w-10 h-2 bg-purple-400 rounded-full animate-pulse"></div>
+                  <div className="w-8 h-1 bg-white rounded-full mt-1 animate-pulse"></div>
+                  {/* Lightning effect */}
+                  <div className="absolute -top-2 -right-2 w-3 h-3 bg-yellow-300 rounded-full animate-ping"></div>
+                  <div className="absolute -top-1 -right-1 w-2 h-2 bg-yellow-400 rounded-full animate-bounce"></div>
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      
+      case 'LIU KANG':
+        return (
+          <div className={`relative w-20 h-24 ${isAttacking ? 'animate-pulse' : ''}`}>
+            <div className={`absolute inset-0 ${hasMomentum ? 'animate-pulse' : ''}`}>
+              {/* Head */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-amber-600 rounded-full border-2 border-amber-800">
+                <div className="absolute top-2 left-1.5 w-1.5 h-1.5 bg-black rounded-full"></div>
+                <div className="absolute top-2 right-1.5 w-1.5 h-1.5 bg-black rounded-full"></div>
+                {/* Headband */}
+                <div className="absolute -top-2 left-0 right-0 h-3 bg-red-600 rounded-t-full border-2 border-red-800"></div>
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 w-2 h-1 bg-amber-800 rounded"></div>
+              </div>
+              
+              {/* Torso */}
+              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 w-10 h-10 bg-red-600 rounded-lg border-2 border-red-800">
+                <div className="absolute inset-1 bg-red-700 rounded"></div>
+                <div className="absolute top-1 left-1/2 transform -translate-x-1/2 w-6 h-2 bg-red-800 rounded"></div>
+              </div>
+              
+              {/* Arms */}
+              <div className={`absolute top-9 left-0 w-4 h-8 bg-amber-600 rounded-full border border-amber-800 ${isAttacking ? 'rotate-45 scale-110' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-3 bg-amber-700 rounded-full border border-amber-900"></div>
+              </div>
+              <div className={`absolute top-9 right-0 w-4 h-8 bg-amber-600 rounded-full border border-amber-800 ${isAttacking ? '-rotate-45 scale-110' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-3 bg-amber-700 rounded-full border border-amber-900"></div>
+              </div>
+              
+              {/* Legs */}
+              <div className={`absolute bottom-0 left-2 w-4 h-8 bg-black rounded-full border border-gray-600 ${isJumping ? 'rotate-12' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-4 bg-gray-800 rounded-full"></div>
+              </div>
+              <div className={`absolute bottom-0 right-2 w-4 h-8 bg-black rounded-full border border-gray-600 ${isJumping ? '-rotate-12' : ''} transition-all duration-200`}>
+                <div className="absolute bottom-0 w-3 h-4 bg-gray-800 rounded-full"></div>
+              </div>
+              
+              {hasMomentum && (
+                <div className="absolute -inset-3 bg-red-400 rounded-full opacity-30 animate-ping"></div>
+              )}
+              
+              {isAttacking && (
+                <div className="absolute -right-6 top-1/2 transform -translate-y-1/2">
+                  <div className="w-10 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                  <div className="w-8 h-1 bg-orange-500 rounded-full mt-1 animate-pulse"></div>
+                  {/* Fire effect */}
+                  <div className="absolute -top-2 -right-2 w-4 h-4 bg-orange-400 rounded-full animate-bounce"></div>
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-400 rounded-full animate-ping"></div>
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      
+      default:
+        return <div className="w-20 h-24 bg-gray-400 rounded"></div>
+    }
+  }
+  
+  return (
+    <div className={`transform transition-all duration-200 ${facingLeft ? 'scale-x-[-1]' : ''} ${isJumping ? '-translate-y-8' : ''}`}>
+      {getCharacterSprite()}
+    </div>
+  )
+}
+
 function App() {
   const [gameState, setGameState] = useState<GameState>({
     gamePhase: 'selection',
@@ -556,14 +783,53 @@ function App() {
             </div>
           </div>
 
-          <div className="text-center mt-12">
-            <Button 
-              onClick={startFight}
-              disabled={!gameState.player1Selection || !gameState.player2Selection}
-              className="bg-primary hover:bg-primary/80 text-2xl px-12 py-4"
-            >
-              START BATTLE!
-            </Button>
+          {/* Start Battle Section */}
+          <div className="text-center mt-16">
+            {gameState.player1Selection && gameState.player2Selection ? (
+              <div className="space-y-8">
+                {/* Selected Fighters Preview */}
+                <div className="flex justify-center items-center space-x-12">
+                  <div className="text-center">
+                    <div className="text-8xl mb-2">
+                      {FIGHTERS[gameState.player1Selection as keyof typeof FIGHTERS].emoji}
+                    </div>
+                    <div className="text-yellow-500 font-bold">
+                      {FIGHTERS[gameState.player1Selection as keyof typeof FIGHTERS].name}
+                    </div>
+                  </div>
+                  
+                  <div className="text-6xl text-accent animate-pulse">VS</div>
+                  
+                  <div className="text-center">
+                    <div className="text-8xl mb-2">
+                      {FIGHTERS[gameState.player2Selection as keyof typeof FIGHTERS].emoji}
+                    </div>
+                    <div className="text-blue-400 font-bold">
+                      {FIGHTERS[gameState.player2Selection as keyof typeof FIGHTERS].name}
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="text-2xl text-accent font-bold animate-pulse">
+                  FIGHTERS SELECTED! READY FOR BATTLE?
+                </div>
+                <Button 
+                  onClick={startFight}
+                  className="bg-primary hover:bg-primary/80 text-3xl px-16 py-6 animate-pulse shadow-lg shadow-primary/50 border-2 border-accent"
+                >
+                  ⚔️ START BATTLE! ⚔️
+                </Button>
+              </div>
+            ) : (
+              <div className="text-xl text-gray-400">
+                {!gameState.player1Selection && !gameState.player2Selection ? 
+                  "Both players need to select their fighters" :
+                  !gameState.player1Selection ? 
+                  "Player 1 needs to select a fighter" :
+                  "Player 2 needs to select a fighter"
+                }
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -699,45 +965,37 @@ function App() {
           style={{ height: '150px' }}
         />
 
-        {/* Characters */}
+        {/* Characters with detailed sprites */}
         <div
-          className={`absolute transition-all duration-200 ${
-            gameState.player1.isAttacking ? 'scale-110' : ''
-          } ${gameState.player1.momentumBoost ? 'drop-shadow-2xl' : ''}`}
+          className="absolute select-none"
           style={{
             left: `${gameState.player1.x}px`,
             bottom: `${STAGE_HEIGHT - gameState.player1.y - gameState.player1.height + (gameState.player1.isJumping ? JUMP_HEIGHT : 0)}px`,
-            width: `${gameState.player1.width}px`,
-            height: `${gameState.player1.height}px`,
-            transform: `scaleX(${gameState.player1.facingRight ? 1 : -1})`
           }}
         >
-          <div className={`w-full h-full rounded-lg flex items-center justify-center text-white font-bold text-lg
-            ${gameState.player1.isAttacking ? 'bg-red-600 shadow-lg shadow-red-500/50' : gameState.player1.color}
-            ${gameState.player1.momentumBoost ? `shadow-2xl ${gameState.player1.glowColor} animate-pulse` : ''}
-            border-4 border-accent transition-all duration-200`}>
-            {gameState.player1.emoji}
-          </div>
+          <CharacterSprite 
+            character={gameState.player1}
+            isAttacking={gameState.player1.isAttacking}
+            isJumping={gameState.player1.isJumping}
+            hasMomentum={gameState.player1.momentumBoost}
+            facingLeft={!gameState.player1.facingRight}
+          />
         </div>
 
         <div
-          className={`absolute transition-all duration-200 ${
-            gameState.player2.isAttacking ? 'scale-110' : ''
-          } ${gameState.player2.momentumBoost ? 'drop-shadow-2xl' : ''}`}
+          className="absolute select-none"
           style={{
             left: `${gameState.player2.x}px`,
             bottom: `${STAGE_HEIGHT - gameState.player2.y - gameState.player2.height + (gameState.player2.isJumping ? JUMP_HEIGHT : 0)}px`,
-            width: `${gameState.player2.width}px`,
-            height: `${gameState.player2.height}px`,
-            transform: `scaleX(${gameState.player2.facingRight ? 1 : -1})`
           }}
         >
-          <div className={`w-full h-full rounded-lg flex items-center justify-center text-white font-bold text-lg
-            ${gameState.player2.isAttacking ? 'bg-red-600 shadow-lg shadow-red-500/50' : gameState.player2.color}
-            ${gameState.player2.momentumBoost ? `shadow-2xl ${gameState.player2.glowColor} animate-pulse` : ''}
-            border-4 border-accent transition-all duration-200`}>
-            {gameState.player2.emoji}
-          </div>
+          <CharacterSprite 
+            character={gameState.player2}
+            isAttacking={gameState.player2.isAttacking}
+            isJumping={gameState.player2.isJumping}
+            hasMomentum={gameState.player2.momentumBoost}
+            facingLeft={!gameState.player2.facingRight}
+          />
         </div>
 
         {/* Controls Overlay */}
